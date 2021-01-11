@@ -1,6 +1,9 @@
 // @TODO: YOUR CODE HERE!
 console.log("D3 Homework");
 
+
+//*****************************************************
+// set the dimensions and margins of the graph
 var svgWidth = 960;
 var svgHeight = 500;
 
@@ -108,7 +111,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
     // Create axes labels
     chartGroup.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left + 40)
+      .attr("y", 0 - margin.left + 20)
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .attr("class", "axisText")
