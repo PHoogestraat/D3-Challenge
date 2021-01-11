@@ -26,7 +26,7 @@ var svg = d3.select(".chart")
 var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-// Import Data
+// Import Data +++++++++++++++++++++++++++
 d3.csv("assets/data/data.csv").then(function(raw) {
     console.log("raw")
     console.log(raw)
@@ -34,13 +34,27 @@ d3.csv("assets/data/data.csv").then(function(raw) {
     // Step 1: Parse Data/Cast as numbers
     // ==============================
     raw.forEach(function(data) {
+        
+        // x axis
         data.poverty = +data.poverty;
-
         data.obesity = +data.obesity;
+        obesityLow = +data.obesityLow
+        obesityHigh = +data.obesityHigh
+        smokes = +data.smokes
+        smokesLow = +data.smokesLow
+        smokesHigh = +data.smokesHigh
+        //y axis
+        
         data.healthcare = +data.healthcare;
-
+        healthcareLow = +data.healthcareLow
+        healthcareHigh = +data.healthcareHigh
+        age= +data.age
+        
         console.log("data1");
         //console.log(data.healthcare);
+        
+        // needed for bubble label
+        //console.log(data.state)
     });
 
     // Step 2: Create scale functions
@@ -82,8 +96,11 @@ d3.csv("assets/data/data.csv").then(function(raw) {
     .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", "15")
     .attr("fill", "blue")
+    .attr("text", d => d.state)
     .attr("opacity", ".5");
  
+    // State labels ????????
+    //console.log(d.state)
     
     // Step 6: Initialize tool tip
     // ==============================
