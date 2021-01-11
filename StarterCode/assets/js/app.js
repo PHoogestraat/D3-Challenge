@@ -110,25 +110,22 @@ d3.csv("assets/data/data.csv").then(function(raw) {
     .attr("text", d => d.state)
     .attr("opacity", ".5");
     
-    /*
-    var node = chartGroup.selectAll("circle")
+    
+    var textCircles = chartGroup.selectAll("circle")
+    .selectAll("text")
     .data(raw)
     .enter()
-    .append("g");
+    .append("text")
+    .text(d => d.abbr)
+    .attr("x", d => xLinearScale(d.poverty))
+    .attr("y", d => d => yLinearScale(d.healthcare))
+    .attr("font-family", "sans-serif")
+    .attr("text-anchor", "middle")
+    .attr("font-size", "10px")
+    .style("fill", "white")
+    .attr("font-weight", "bold");
 
-    node.append("circle")
-        .attr("class", "dot")
-        .attr("cx", d => xLinearScale(d.poverty))
-        .attr("cy", d => yLinearScale(d.healthcare))
-        .attr("r", 12);
 
-    node.append("text")
-        .attr("x",d => xLinearScale(d.poverty))
-        .attr("y", d => yLinearScale(d.healthcare))
-        .text(d=>d.state);
-        */
-    // State labels ????????
-    //console.log(d.abbr)
     
     // Step 6: Initialize tool tip
     // ==============================
@@ -152,6 +149,9 @@ d3.csv("assets/data/data.csv").then(function(raw) {
       .on("mouseout", function(data, index) {
         toolTip.hide(data);
       });
+
+
+      
    
     // Create axes labels
     chartGroup.append("text")
