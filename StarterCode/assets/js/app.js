@@ -1,6 +1,7 @@
 // @TODO: YOUR CODE HERE!
 console.log("D3 Homework");
 
+ 
 
 //*****************************************************
 // set the dimensions and margins of the graph
@@ -54,8 +55,17 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         //console.log(data.healthcare);
         
         // needed for bubble label
-        //console.log(data.state)
+        //console.log(data.abbr)
+
+
+
+
     });
+    
+
+
+
+
 
     // Step 2: Create scale functions
     // ==============================
@@ -87,7 +97,8 @@ d3.csv("assets/data/data.csv").then(function(raw) {
       .call(leftAxis);
 
     // Step 5: Create Circles
-    // ==============================
+    //* ==============================
+    
     var circlesGroup = chartGroup.selectAll("circle")
     .data(raw)
     .enter()
@@ -98,9 +109,26 @@ d3.csv("assets/data/data.csv").then(function(raw) {
     .attr("fill", "blue")
     .attr("text", d => d.state)
     .attr("opacity", ".5");
- 
+    
+    /*
+    var node = chartGroup.selectAll("circle")
+    .data(raw)
+    .enter()
+    .append("g");
+
+    node.append("circle")
+        .attr("class", "dot")
+        .attr("cx", d => xLinearScale(d.poverty))
+        .attr("cy", d => yLinearScale(d.healthcare))
+        .attr("r", 12);
+
+    node.append("text")
+        .attr("x",d => xLinearScale(d.poverty))
+        .attr("y", d => yLinearScale(d.healthcare))
+        .text(d=>d.state);
+        */
     // State labels ????????
-    //console.log(d.state)
+    //console.log(d.abbr)
     
     // Step 6: Initialize tool tip
     // ==============================
