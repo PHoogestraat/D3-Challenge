@@ -56,10 +56,6 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         
         // needed for bubble label
         //console.log(data.abbr)
-
-
-
-
     });
     
 
@@ -70,13 +66,15 @@ d3.csv("assets/data/data.csv").then(function(raw) {
     // Step 2: Create scale functions
     // ==============================
     var xLinearScale = d3.scaleLinear()
-      .domain([0, d3.max(raw, d => d.poverty)])
+      .domain([d3.min(raw, d => d.poverty) -1, d3.max(raw, d => d.poverty)])
+    
+    // Leave alone
       .range([0, width]);
         
 
 
     var yLinearScale = d3.scaleLinear()
-      .domain([0, d3.max(raw, d => d.healthcare)])
+      .domain([d3.min(raw, d => d.healthcare) -5, d3.max(raw, d => d.healthcare)])
       .range([height, 0]);
 
 
@@ -107,24 +105,41 @@ d3.csv("assets/data/data.csv").then(function(raw) {
     .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", "15")
     .attr("fill", "blue")
-    .attr("text", d => d.state)
+    //.attr("text", d => d.state)
     .attr("opacity", ".5");
-    
+
+
+    // Short code for inserting state abreviation into bubble effort 1
+    /*var cicrleText = circlesGroup.append('text').text(d => d.abbr)
+        .attr("dx", d => xLinearScale(d.poverty))
+        .attr("dy", d => yLinearScale(d.healthcare))
+        .attr("fill", "red")
+        .attr("font-size", "10px")
+    */
+    // Long version code for inserting state abreviation into bubble effort 1
+    // Not needed /*
     
     var textCircles = chartGroup.selectAll("circle")
-    .selectAll("text")
+    .selectAll("text")  // Select text to bind
     .data(raw)
     .enter()
     .append("text")
     .text(d => d.abbr)
-    .attr("x", d => xLinearScale(d.poverty))
-    .attr("y", d => d => yLinearScale(d.healthcare))
+    
+    //.attr("dx", 9.2)
+    //.attr("dy", 11.4)
+
+    //.attr("dx", d => xLinearScale(d.poverty))
+    //.attr("dy", d => yLinearScale(d.healthcare))
+    .attr("dx", d => xLinearScale(9.2))
+    .attr("dy", d => yLinearScale(11.4))
+    
     .attr("font-family", "sans-serif")
     .attr("text-anchor", "middle")
-    .attr("font-size", "10px")
-    .style("fill", "white")
+    .attr("font-size", "20px")
+    .style("fill", "red")
     .attr("font-weight", "bold");
-
+    
 
     
     // Step 6: Initialize tool tip
@@ -151,7 +166,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
       });
 
 
-      
+
    
     // Create axes labels
     chartGroup.append("text")
